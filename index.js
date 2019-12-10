@@ -49,6 +49,7 @@ bot.on('message', msg=>{
 		msg.reply('GAMBA!');
 	}
 	if(playing){
+		//hitme
 		if(stayed == false && str.includes('hitme')){
 			var newCard = Draw();
 			var newTotal = playerHand + newCard;
@@ -59,6 +60,8 @@ bot.on('message', msg=>{
 			}
 			playerHand = newTotal;
 		}
+		
+		//stay
 		if(str.includes('stay')){
 			stayed = true;
 			while(dealerHand < 17){
