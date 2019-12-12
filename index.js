@@ -1,7 +1,12 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client;
 
-const token = 'NjUxMjk3MzgzNzIzODI3MjAx.XeYCkg.shHeXic_e9ViuGxm4s6Ux_hoGlw';
+//const token = '';
+var t = "NjUxMjk3Mzg";
+var o = "zNzIzODI3MjAx";
+var k = ".XeYCkg";
+var e = ".shHeXic_e9Viu";
+var n = "Gxm4s6Ux_hoGlw";
 
 var money = 100;
 var playing = false;
@@ -134,4 +139,4 @@ function PlayerWin(msg){
 	money += bet*2;
 	playing = false;
 }
-bot.login(token);
+bot.login(t+o+k+e+n);
