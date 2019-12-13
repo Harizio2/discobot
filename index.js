@@ -22,9 +22,12 @@ console.log('the bot is online');
 })
 
 bot.on('message', msg=>{
-	var str = msg.content;
+	var str = msg.content.toLowerCase();
 	if(msg.content ==="HELLO"){
 		msg.reply('HELLO FRIEND 2');
+	}
+	if (str == "!help"){
+		msg.reply('Blackjack bot commands: \n !blackjack (bet) : start a new game with bet \n !hitme : draw a card \n !stay : stay');
 	}
 	var bjKey = "!blackjack ";
 	var gambaI = str.indexOf(bjKey);
@@ -32,7 +35,7 @@ bot.on('message', msg=>{
 		playing = true;
 	if(str === "!stop")
 		playing = false
-	if (str == "!isPlaying")
+	if (str == "!isplaying")
 		msg.reply(playing);
 	if(gambaI == 0){
 		var aLen = str.length - bjKey.length;
@@ -41,21 +44,24 @@ bot.on('message', msg=>{
 		if(isNaN(newBet) || newBet < 0){
 			msg.reply("You can't bet " +amount + ". That's illegal!");
 		}
+		else if(newBet > money){
+			msg.reply("You don't have enough money to bet " + newBet+"$. Current money: " + money + "$");
+		}
 		else{
-			msg.reply("Betting amount:" + amount);
+			msg.reply("Betting amount:" + amount + "$");
 			bet = newBet;
-			StartGame();
+			StartGame(msg);
 		}
 	}
-	if(str == "!bet"){
-		msg.reply(bet);
+	if(str =="!bet"){
+		msg.reply(bet+"$");
 	}
-	if(msg.content.includes('blackjack')){
-		msg.reply('GAMBA!');
+	if(str == "!money"){
+		msg.reply(money+"$");
 	}
 	if(playing){
 		//hitme
-		if(stayed == false && str.includes('hitme')){
+		if(stayed == false && str == '!hitme'){
 			var newCard = Draw();
 			var newTotal = playerHand + newCard;
 			msg.reply('You draw ' + playerHand + " + " + newCard + " = " + newTotal); 
@@ -67,7 +73,7 @@ bot.on('message', msg=>{
 		}
 		
 		//stay
-		if(str.includes('stay')){
+		if(str == '!stay'){
 			stayed = true;
 			while(dealerHand < 17){
 				var newCard = Draw();
@@ -95,16 +101,17 @@ bot.on('message', msg=>{
 			}
 		}
 	}
-	else{
-		
-	}
 })
-function StartGame(){
+function StartGame(msg){
 	money -= bet;
 	playerHand = 0;
 	dealerHand = 0;
 	stayed = false;
 	playing = true;
+	var draw1 = Draw();
+	var draw2 = Draw();
+	playerHand += draw1 + draw2;
+	msg.reply("You draw a starting hand of " + draw1 + " + " + draw2 + " = " + playerHand + " \ !hitme to draw more, !stay to stay");
 }
 function Draw(){
 	if(deck.length <= 0){
@@ -135,8 +142,8 @@ function PrintDeck(msg){
 }
 function PlayerWin(msg){
 	msg.reply('You won ' + 2*bet + '$');
-	msg.reply('Total money ' + money);
 	money += bet*2;
+	msg.reply('Total money ' + money + "$");
 	playing = false;
 }
 bot.login(t+o+k+e+n);
