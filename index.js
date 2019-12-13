@@ -2,11 +2,11 @@ const Discord = require('discord.js');
 const bot = new Discord.Client;
 
 //const token = '';
-var t = "NjUxMjk3Mzg";
-var o = "zNzIzODI3MjAx";
-var k = ".XeYCkg";
-var e = ".shHeXic_e9Viu";
-var n = "Gxm4s6Ux_hoGlw";
+var t = 'NjUx';
+var o = 'Mjk3MzgzNzI';
+var k = 'zODI3MjAx.XfQGO';
+var e = 'Q.dFny7KovxxE';
+var n = 'J2BIA-E4f__eqrfA';
 
 var money = 100;
 var playing = false;
@@ -140,3 +140,4 @@ function PlayerWin(msg){
 	playing = false;
 }
 bot.login(t+o+k+e+n);
+//bot.login(token);
